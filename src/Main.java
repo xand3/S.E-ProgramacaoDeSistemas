@@ -9,67 +9,99 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
+        boolean playAgain = true;
 
-        // mensagem de bem vindas do jogo, e menu para iniciar o finalizar
-        String msgBoasVindas = """
-                Bem-vindo ao jogo de adivinhação de Números!
-                Digite a opção desejada:
-                                
-                1 - Digite 1 Iniciar jogo.
-                2 - Digite 2 Sair do jogo.
+        String welcomeMessage = """
+                [***********************************************************]
+                [********BEM-VINDO AO JOGO DE ADIVINHAÇÃO DE NÚMEROS!*******]
+                [***********************************************************]
                 """;
+        System.out.println(welcomeMessage);
 
-        boolean entradaValida = false;
+        while (playAgain) {
+            System.out.println();
+            int option = scanNumber(scanner, """
+                    1 - Digite 1 para iniciar o jogo.
+                    2 - Digite 2 para fechar o jogo.
+                    """);
+            if (option == 1) {
+                System.out.println("Para Iniciar o jogo por favor escolha o intervalo númerico.");
 
-        // loop para validar opção escolhida pelo usuario
-        while (!entradaValida) {
-            System.out.println(msgBoasVindas);
+                int initOfRange = scanNumber(scanner, "Por favor digite o valor inicial do intervalo: ");
+                int endOfRange = scanNumber(scanner, "Por favor digite o valor final do intervalo: ");
 
-            try {
-                int opcao = scanner.nextInt();
-                if (opcao == 1) {
-                    System.out.println("iniciar jogo");
-                    entradaValida = true;
-                } else if (opcao == 2) {
-                    System.exit(0);
-                    entradaValida = true;
-                } else {
-                    System.out.println("Por favor digite uma das opções listadas.");
+                if (initOfRange >= endOfRange) {
+                    System.out.println("Intervalo inválido! O valor final deve ser maior que o valor final.");
+                    continue;
                 }
-            } catch (Exception e) {
-                System.out.println("Entrada inválida! por favor digite uma das opções.");
-                scanner.nextLine();
-            }
-        }
 
-        // Input para definir o Inicio do intervalo
-        System.out.print("Por favor defina o inicio do intervalo:");
-        int inicioDoIntervalo = scanner.nextInt();
+                System.out.println("O intervalo escolhido está entre: " + initOfRange + " e " + endOfRange + ".");
 
-        // Input para definir o Fim do intervalo
-        System.out.print("Por favor defina o fim do intervalo:");
-        int fimDoIntervalo = scanner.nextInt();
+                int selectedNumber = random.nextInt(endOfRange - initOfRange + 1) + initOfRange;
+                int tries = 0;
+                boolean hit = false;
 
-        System.out.println("O intervalo escolhido está entre: " + inicioDoIntervalo + " e " + fimDoIntervalo + ".");
+                while (!hit) {
+                    System.out.println("Digite sua tentativa (ou 'sair' para encerrar o jogo): ");
+                    String userEntry = scanner.nextLine();
 
-        int numeroSelecionado = random.nextInt(fimDoIntervalo - inicioDoIntervalo + 1) + inicioDoIntervalo;
-        int tentativas = 0;
-        boolean acertou = false;
+                    if (userEntry.equalsIgnoreCase("sair")) {
+                        endGame();
+                    }
 
-        while (!acertou) {
-            System.out.println("Digite seu palpite: ");
-            int palpite = scanner.nextInt();
-            tentativas++;
+                    try {
+                        int userTry = Integer.parseInt(userEntry);
+                        tries++;
 
-            if (palpite > numeroSelecionado) {
-                System.out.println("O palpite é maior que o número sorteado");
-            } else if (palpite < numeroSelecionado) {
-                System.out.println("O palpite é menor que o número sorteado");
+                        if (!verifyTry(userTry, initOfRange, endOfRange)) {
+                            System.out.println("Entrada inválida!, Por favor digite um número que dentro do intervalo");
+                            System.out.println("Inicio do intervalo: " + initOfRange + "      Fim do intervalo: " + endOfRange + ".");
+                        } else if (userTry == selectedNumber) {
+                            System.out.println("Parabéns! Você acertou em " + tries + " tentativas!");
+                            hit = true;
+                        } else if (userTry < selectedNumber) {
+                            System.out.println("O número sorteado é maior! Tente novamente.");
+                        } else {
+                            System.out.println("O número sorteado é menor! Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Entrada inválida! Por favor, digite um número.");
+                    }
+
+                }
+
             } else {
-                System.out.println("Parabéns! Você acertou em " + tentativas + " tentativas!");
-                acertou = true;
+                endGame();
+            }
+            playAgain = false;
+        }
+    }
+
+    // Função para verificar se a tentativa do usuario esta dentro do intervalo definido pelo usuario
+    private static boolean verifyTry(int userTry, int initOfRange, int endOfRange) {
+        return userTry >= initOfRange && userTry <= endOfRange;
+    }
+
+    // Função para receber uma entrada númerica do usuario
+    private static int scanNumber(Scanner scanner, String message) {
+        while (true) {
+            System.out.println(message);
+            String entry = scanner.nextLine();
+
+            // Tratamento de exceção para possivel entrada errada do usuario
+            try {
+                return Integer.parseInt(entry);
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida, por favor informe um número válido.");
             }
         }
+    }
 
+    // Função para finalizar o jogo
+    private static void endGame() {
+        System.out.println("""
+                [************ Obrigado por jogar! até a próxima. ***********]
+                """);
+        System.exit(0);
     }
 }
