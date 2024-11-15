@@ -1,3 +1,5 @@
+package atv1;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -6,7 +8,7 @@ import java.util.Scanner;
  */
 
 public class Main {
-    public static void main(String[] args) {
+    public static void jogoDeAdvinhacao(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
         boolean playAgain = true;
