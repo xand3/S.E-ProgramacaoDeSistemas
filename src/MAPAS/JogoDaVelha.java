@@ -33,7 +33,7 @@ public class JogoDaVelha {
             if (jogadas > 4 && verificaVitoria(tabuleiro, simboloAtual == 'X' ? 'O' : 'X')) {
                 char vencedor = (simboloAtual == 'X' ? 'O' : 'X');
                 System.out.println("╔════════════════════════════════════╗");
-                System.out.printf ("║     PARABÉNS! Jogador %c VENCEU!     ║\n", vencedor);
+                System.out.printf ("║     PARABÉNS! Jogador %c VENCEU!   ║\n", vencedor);
                 System.out.println("╚════════════════════════════════════╝");
                 jogando = false;
                 continue;
