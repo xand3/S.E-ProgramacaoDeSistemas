@@ -1,4 +1,4 @@
-package MAPAS;
+package MAPAS.Programacao1;
 
 public class Campo {
     private char simbolo;

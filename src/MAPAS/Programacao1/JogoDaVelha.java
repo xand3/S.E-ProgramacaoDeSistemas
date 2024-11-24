@@ -1,4 +1,4 @@
-package MAPAS;
+package MAPAS.Programacao1;
 
 import java.util.Scanner;
 
