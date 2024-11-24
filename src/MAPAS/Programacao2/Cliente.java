@@ -40,11 +40,13 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", telefone='" + telefone + '\'' +
-                '}';
+        return String.format("""
+           -----------------------------------------
+           ID: %d
+           Nome: %s
+           Email: %s
+           Telefone: %s
+           -----------------------------------------""",
+                id, nome, email, telefone);
     }
 }
