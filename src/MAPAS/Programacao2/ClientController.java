@@ -3,13 +3,13 @@ package MAPAS.Programacao2;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ClienteController {
-    private ArrayList<Cliente> clientes;
+public class ClientController {
+    private ArrayList<Client> clients;
     private int proximoID;
     public Scanner scan;
 
-    public ClienteController() {
-        this.clientes = new ArrayList<>();
+    public ClientController() {
+        this.clients = new ArrayList<>();
         this.proximoID = 1;
         this.scan = new Scanner(System.in);
     }
@@ -24,23 +24,23 @@ public class ClienteController {
             System.out.print("Telefone: ");
             String telefone = scan.nextLine();
 
-            Cliente cliente = new Cliente(proximoID++, nome, email, telefone);
-            clientes.add(cliente);
-            System.out.println("CLIENTE CADASTRADO! ID: " + cliente.getId());
-            System.out.println(cliente);
-        } catch(Exception error) {
+            Client client = new Client(proximoID++, nome, email, telefone);
+            clients.add(client);
+            System.out.println("CLIENTE CADASTRADO! ID: " + client.getId());
+            System.out.println(client);
+        } catch (Exception error) {
             System.out.println("Erro ao cadastrar cliente");
         }
     }
 
     public void getClients() {
         System.out.println("\n ##### LISTA DE CLIENTES #####");
-        if(clientes.isEmpty()) {
+        if (clients.isEmpty()) {
             System.out.println("!!NENHUM CLIENTE ENCONTRADO!!");
             return;
         }
-        for (Cliente cliente : clientes) {
-            System.out.println(cliente);
+        for (Client client : clients) {
+            System.out.println(client);
             System.out.println("##############################");
         }
     }
@@ -50,33 +50,33 @@ public class ClienteController {
 
         System.out.print("Digite o ID do cliente para atualização: ");
         int id = Integer.parseInt(scan.nextLine());
-        Cliente cliente = getClientByID(id);
-        if(cliente == null) {
-            System.out.println("!!NENHUM CLIENTE ENCONTRADO!!");
+        Client client = getClientByID(id);
+        if (client == null) {
+            System.out.println("!!!NENHUM CLIENTE ENCONTRADO!!!");
             return;
         }
 
         // Atualizando nome do cliente
-        System.out.println("nome atual: " + cliente.getNome());
+        System.out.println("nome atual: " + client.getNome());
         System.out.print("Digite o novo nome: ");
         String nome = scan.nextLine();
-        if (!nome.isEmpty()) cliente.setNome(nome);
+        if (!nome.isEmpty()) client.setNome(nome);
 
         // Atualizando email do cliente
-        System.out.println("email atual: " + cliente.getEmail());
+        System.out.println("email atual: " + client.getEmail());
         System.out.print("Digite o novo email: ");
         String email = scan.nextLine();
-        if (!email.isEmpty()) cliente.setEmail(email);
+        if (!email.isEmpty()) client.setEmail(email);
 
         // Atualizando telefone do cliente
-        System.out.println("telefone atual: " + cliente.getTelefone());
+        System.out.println("telefone atual: " + client.getTelefone());
         System.out.print("Digite o novo telefone: ");
         String telefone = scan.nextLine();
-        if (!telefone.isEmpty()) cliente.setTelefone(telefone);
+        if (!telefone.isEmpty()) client.setTelefone(telefone);
 
         System.out.println("Informações atualizadas com sucesso!");
-        cliente = getClientByID(id);
-        System.out.println(cliente);
+        client = getClientByID(id);
+        System.out.println(client);
     }
 
     public void getClient() {
@@ -84,40 +84,36 @@ public class ClienteController {
         System.out.print("Digite o ID do cliente: ");
         int id = Integer.parseInt(scan.nextLine());
 
-        Cliente cliente = getClientByID(id);
-        if (cliente == null) {
-            System.out.println("Cliente não encontrado!");
+        Client client = getClientByID(id);
+        if (client == null) {
+            System.out.println("!!!CLIENTE NÃO ENCONTRADO!!!");
             return;
         }
 
         System.out.println("Cliente encontrado: ");
-        System.out.println(cliente);
+        System.out.println(client);
     }
 
     public void deleteClientByID() {
         System.out.println("\n##### DELETAR CLIENTE #####");
         System.out.print("Digite o ID do cliente: ");
         int id = Integer.parseInt(scan.nextLine());
-        Cliente cliente = getClientByID(id);
+        Client client = getClientByID(id);
 
-        if (cliente == null) {
-            System.out.println("Cliente não encontrado!");
+        if (client == null) {
+            System.out.println("!!!CLIENTE NÃO ENCONTRADO!!!");
             return;
         }
-
-        clientes.remove(cliente);
+        clients.remove(client);
         System.out.println("Cliente removido com sucesso!");
-
     }
 
-    private Cliente getClientByID(int id) {
-        for (Cliente cliente : clientes) {
-            if (cliente.getId() == id) {
-                return cliente;
+    private Client getClientByID(int id) {
+        for (Client client : clients) {
+            if (client.getId() == id) {
+                return client;
             }
         }
         return null;
     }
-
-
 }

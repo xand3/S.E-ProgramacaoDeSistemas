@@ -1,12 +1,12 @@
 package MAPAS.Programacao2;
 
-public class Cliente {
+public class Client {
     private int id;
     private String nome;
     private String email;
     private String telefone;
 
-    public Cliente(int id, String nome, String email, String telefone) {
+    public Client(int id, String nome, String email, String telefone) {
         this.id = id;
         this.nome = nome;
         this.email = email;

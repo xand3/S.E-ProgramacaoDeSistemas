@@ -5,29 +5,29 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        ClienteController controller = new ClienteController();
+        ClientController controller = new ClientController();
 
         while (true) {
             System.out.println("########### SISTEMA CRUD DE CLIENTES ###########");
             System.out.println("""
-                1. Cadastrar Cliente
-                2. Listar Clientes
-                3. Atualizar Cliente
-                4. Remover Cliente
-                5. Buscar Cliente
-                6. Sair""");
+                    1. Cadastrar Cliente
+                    2. Listar Clientes
+                    3. Atualizar Cliente
+                    4. Remover Cliente
+                    5. Buscar Cliente
+                    6. Sair""");
             System.out.print("Escolha uma das opções: ");
 
-            int opcao;
+            int option;
             try {
-                opcao = Integer.parseInt(scan.nextLine());
-            } catch(NumberFormatException error) {
+                option = Integer.parseInt(scan.nextLine());
+            } catch (NumberFormatException error) {
                 System.out.println("Opção inválida! por favor tente novamente");
                 continue;
             }
 
             try {
-                switch (opcao) {
+                switch (option) {
                     case 1:
                         controller.createClient();
                         break;
